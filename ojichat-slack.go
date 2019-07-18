@@ -38,12 +38,12 @@ func Ojichat(w http.ResponseWriter, r *http.Request) {
 
 	switch s.Command {
 	case "/ojichat":
-		msg, err := generateOjichat("")
+		msg, err := generateOjichat(s.Text)
 		if err != nil {
 			w.WriteHeader(http.StatusInternalServerError)
 			return
 		}
-		m := &slack.Msg{Text: msg, ResponseType:"in_channel", Icons: &slack.Icon{IconEmoji: ":man-raising-hand:"}}
+		m := &slack.Msg{Text: msg, ResponseType:"in_channel"}
 		b, err := json.Marshal(m)
 		if err != nil {
 			w.WriteHeader(http.StatusInternalServerError)

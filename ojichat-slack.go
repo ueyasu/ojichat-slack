@@ -3,7 +3,7 @@ package ojichatslack
 import (
 	"log"
 	"os"
-    "encoding/json"
+	"encoding/json"
 
 	"net/http"
 

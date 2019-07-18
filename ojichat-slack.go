@@ -1,10 +1,8 @@
 package ojichatslack
 
 import (
-	"log"
 	"os"
 	"encoding/json"
-
 	"net/http"
 
 	"github.com/nlopes/slack"
@@ -13,14 +11,12 @@ import (
 
 var verificationToken = os.Getenv("VERIFICATION_TOKEN")
 
-func generateOjichat(name string) (string, error) {
+func generateOjiMsg(name string) (string, error) {
 	config := generator.Config{TargetName: name, EmojiNum: 4, PunctiuationLebel: 0}
 	result, err := generator.Start(config)
 	if err != nil {
-		log.Fatal(err)
 		return "", err
 	}
-	log.Printf("%s\n", result)
 	return result, nil
 }
 
@@ -38,7 +34,7 @@ func Ojichat(w http.ResponseWriter, r *http.Request) {
 
 	switch s.Command {
 	case "/ojichat":
-		msg, err := generateOjichat(s.Text)
+		msg, err := generateOjiMsg(s.Text)
 		if err != nil {
 			w.WriteHeader(http.StatusInternalServerError)
 			return
